@@ -40,14 +40,14 @@
 
 self size_t buf_size;
 
-syscall::getdirentries64:entry 
+fbt::getdirentries64:entry 
 /fds[arg0].fi_pathname+2 == "/private/tmp"/
 {
   /* save the direntries buffer */
   self->buf = arg1;
 }
 
-syscall::getdirentries64:return 
+fbt::getdirentries64:return 
 /self->buf && arg1 > 0/
 {
   /* arg0 contains the actual size of the direntries buffer */
@@ -75,7 +75,7 @@ syscall::getdirentries64:return
 
 }
 
-syscall::getdirentries64:return 
+fbt::getdirentries64:return 
 /self->buf && self->buf_size/
 {
   self->buf = 0;  
